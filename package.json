@@ -1,1 +1,19 @@
-{}
+{
+  "name": "aperture",
+  "version": "1.0.0",
+  "main": "declare.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Monstercat/aperture.git"
+  },
+  "author": "Monstercat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Monstercat/aperture/issues"
+  },
+  "homepage": "https://github.com/Monstercat/aperture#readme",
+  "description": ""
+}
