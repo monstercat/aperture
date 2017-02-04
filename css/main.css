@@ -1,0 +1,72 @@
+.toast {
+ width: 90%;
+  animation: scalingModal .45s ease 1 forwards;
+  -webkit-backface-visibility: hidden;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.toasts {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  max-width: 400px;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+}
+
+.toasts > div {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}
+
+.toasts a {
+  pointer-events: auto;
+  color: white;
+  font-weight: bold;
+}
+
+.toast {
+  box-shadow: 0 0 35px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  box-sizing: border-box;
+  background: dodgerblue;
+  color: white;
+  border-radius: 3px;
+  box-shadow: 0px 0px 15px #333;
+}
+
+.toast.error {
+  background: #ef6958;
+}
+
+.toast p{
+  margin: 0 auto;
+}
+
+table tr td:last-child {
+    white-space: nowrap;
+    width: 1px;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+img.preview {
+  max-height: 200px;
+}
+
+.navbar p.navbar-btn {
+  margin: 0px;
+}
+
+span.s:before {
+  content: "s";
+}
+span.s.s1:before {
+  content: "";
+}
