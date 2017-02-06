@@ -15,5 +15,8 @@
     "url": "https://github.com/Monstercat/aperture/issues"
   },
   "homepage": "https://github.com/Monstercat/aperture#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "declare": "git+ssh://git@github.com/vindexus/declare.git"
+  }
 }
