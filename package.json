@@ -17,6 +17,6 @@
   "homepage": "https://github.com/Monstercat/aperture#readme",
   "description": "",
   "dependencies": {
-    "declare": "git+ssh://git@github.com/vindexus/declare.git"
+    "declare": "git+ssh://git@github.com/monstercat/declare.git"
   }
 }
