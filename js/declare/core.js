@@ -20,7 +20,7 @@
  * @returns {XMLHttpRequest}
  */
 function request (opts, done) {
-  if (typeof opts.url != "String") {
+  if (typeof opts.url != "string") {
     console.warn("Request URL not provided.")
     return done(Error("URL not provided."))
   }
@@ -34,7 +34,7 @@ function request (opts, done) {
     done(Error(msg), null, xhr);
   }
   xhr.open(opts.method || "GET", opts.url)
-  if (typeof opts.headers == "Object") {
+  if (typeof opts.headers == "object") {
     for (var key in opts.headers) {
       xhr.setRequestHeader(key, opts.headers[key]);
     }
@@ -42,6 +42,20 @@ function request (opts, done) {
   xhr.withCredentials = !!opts.withCredentials || !!opts.cors;
   xhr.send(opts.data);
   return xhr;
+}
+
+function requestJSON (opts, done) {
+  console.log('opts', opts)
+  return request(opts, function (err, text, xhr) {
+    try {
+      var json = JSON.parse(text)
+    }
+    catch (ex) {
+      return done(ex, null, xhr)
+    }
+
+    return done(null, json, xhr)
+  })
 }
 
 /*
@@ -126,8 +140,10 @@ function findNodes (pattern, context) {
  */
 function cloneNodeAsElement (node, tagname) {
   var el = document.createElement(tagname);
+  console.log('node', node)
   for (var i=0; i<node.attributes.length; i++) {
-    var o = node.attributes[0];
+    var o = node.attributes[i];
+    console.log('o', o)
     el.setAttribute(o.name, o.value);
   }
   return el;
@@ -162,8 +178,8 @@ function getFromDotString (obj, str) {
  * @returns {Function}
  */
 function getMethod (path, context) {
-  var fn = getFromDotString((context || window), name);
-  if (typeof fn != 'Function') return undefined;
+  var fn = getFromDotString((context || window), path);
+  if (typeof fn != 'function') return undefined;
   return fn;
 }
 
@@ -197,9 +213,14 @@ function loadNodeSources (parent) {
  */
 function loadNodeSource (node) {
   var source = node.getAttribute('data-source');
-  var process = getMethod(node.getAttribute('data-process')) || dummyMethod;
-  if (!source) return;
+  var dataProcess = node.getAttribute('data-process')
+  console.log('data process', dataProcess)
+  var process = getMethod(dataProcess) || dummyMethod;
+  console.log('node yo', node)
+  console.log('source', source)
+  console.log('process', process)
   process('start', node);
+  if (!source) return;
   requestCached({
     url: source,
     cors: !!node.hasAttribute('data-cors')

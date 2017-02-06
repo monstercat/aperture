@@ -6,7 +6,7 @@
  * @returns {Element}
  */
 function getTemplate (name) {
-  return findOne('[data-template="'+name+'"]');
+  return findNode('[data-template="'+name+'"]');
 }
 
 /**
@@ -15,7 +15,7 @@ function getTemplate (name) {
  * @returns {Element[]}
  */
 function getPartials () {
-  var els = findAll('[data-partial]');
+  var els = findNodes('[data-partial]');
   var obj = {};
   for(var i=0; i<els.length; i++) {
     obj[els[i].getAttribute('data-template')] = els[i].textContent;

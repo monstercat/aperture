@@ -31,7 +31,7 @@ function changeState (url, state, title) {
       url: url
     }
   });
-  window.dispatch(ev);
+  window.dispatchEvent(ev);
 }
 
 /**
@@ -41,8 +41,10 @@ function readState () {
   cache();
   var str = location.pathname.substr(1);
   var result = getRouteNode(str);
+  console.log('results', result)
   if (!result) return;
   var node = cloneNodeAsElement(result.node, 'div'); 
+  console.log('node that we clone', node)
   node.innerHTML = result.node.textContent;
   loadNodeSource(node);
   return node;
@@ -74,16 +76,24 @@ function getRouteNode (path) {
   var matches, target;
   for (var i=0; i<nodes.length; i++) {
     var node = nodes[i];
+    console.log('node', node)
     var rx = new RegExp(node.getAttribute('data-route'));
-    if (!re.test(path)) continue;
-    matches = path.match(re);
-    if (!matches) continue;
+    if (!rx.test(path)) {
+      console.log('nope, continue')
+      continue;
+    }
+    matches = path.match(rx);
+    if (!matches) {
+      console.log('nope matches, continue')
+      continue;
+    }
     target = node;
     break;
   }
   if (!target) return;
+  console.log('target', target)
   return {
-    node: target
+    node: target,
     matches: matches
   };
 }
