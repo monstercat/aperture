@@ -35,7 +35,7 @@ function getPartials () {
  * 
  * @returns {Element}
  */
-function render (name, scope, el, paritals) {
+function render (name, scope, el, partials) {
   var tmpl = getTemplate(name);
   if (!tmpl) return;
   el = el || cloneNodeAsElement(tmpl, tmpl.getAttribute('data-tagname') || 'div');
