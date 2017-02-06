@@ -150,3 +150,33 @@ function dataDotReducer (inData) {
     return data
   }, {})
 }
+
+/* */
+
+function getSession (done) {
+  requestJSON({
+    url: endpoint + '/self/session',
+    withCredentials: true
+  }, done)
+}
+
+function hasArtistAccess() {
+  return session && session.permissions && session.user && session.user.type && session.user.type.indexOf('artist') >= 0
+}
+
+function isSignedIn () {
+  return !!(session && session.user)
+}
+
+function getSessionName () {
+  var names = []
+  if(session.user) {
+    names = names.concat([session.user.realName, session.user.name, session.user.email.substr(0, session.user.email.indexOf('@'))])
+  }
+  for(var i = 0; i < names.length; i++) {
+    if(names[i] && names[i].length > 0) {
+      return names[i]
+    }
+  }
+  return 'guest'
+}
