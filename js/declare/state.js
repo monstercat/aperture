@@ -23,8 +23,7 @@ function go (url, state, title) {
  */
 function changeState (url, state, title) {
   var el = readState();
-  console.log('el', el)
-  title = title || el.getAttribute('page-title')
+  title = typeof(title) == 'string' ? title : el.getAttribute('data-title')
   var ev = new CustomEvent("changestate", {
     detail: {
       element: el,
