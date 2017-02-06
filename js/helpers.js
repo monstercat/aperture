@@ -180,3 +180,19 @@ function getSessionName () {
   }
   return 'guest'
 }
+
+function transformPage (obj) {
+  obj = obj || {}
+  obj.isSignedIn = isSignedIn()
+  obj.sessionName = getSessionName()
+  obj.hasArtistAccess = hasArtistAccess()
+  return obj
+}
+
+function renderLoading (obj) {
+  renderContent('loading', transformPage(obj))
+}
+
+function renderError (err) {
+  renderContent('error', {error: err.toString()})
+}

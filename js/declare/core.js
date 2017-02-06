@@ -40,13 +40,19 @@ function request (opts, done) {
     }
   }
   xhr.withCredentials = !!opts.withCredentials || !!opts.cors;
-  xhr.send(opts.data);
+  var delay = opts.delay || 0
+  setTimeout(function () {
+    xhr.send(opts.data);
+  }, delay)
   return xhr;
 }
 
 function requestJSON (opts, done) {
-  console.log('opts', opts)
   return request(opts, function (err, text, xhr) {
+    if(err) {
+      return done(err, null, xhr)
+    }
+
     try {
       var json = JSON.parse(text)
     }
@@ -140,10 +146,8 @@ function findNodes (pattern, context) {
  */
 function cloneNodeAsElement (node, tagname) {
   var el = document.createElement(tagname);
-  console.log('node', node)
   for (var i=0; i<node.attributes.length; i++) {
     var o = node.attributes[i];
-    console.log('o', o)
     el.setAttribute(o.name, o.value);
   }
   return el;
@@ -214,11 +218,7 @@ function loadNodeSources (parent) {
 function loadNodeSource (node) {
   var source = node.getAttribute('data-source');
   var dataProcess = node.getAttribute('data-process')
-  console.log('data process', dataProcess)
   var process = getMethod(dataProcess) || dummyMethod;
-  console.log('node yo', node)
-  console.log('source', source)
-  console.log('process', process)
   process('start', node);
   if (!source) return;
   requestCached({
