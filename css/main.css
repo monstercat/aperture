@@ -1,3 +1,7 @@
+body {
+  padding-bottom: 2em;
+}
+
 .toast {
  width: 90%;
   animation: scalingModal .45s ease 1 forwards;
@@ -69,6 +73,14 @@ span.s:before {
 }
 span.s.s1:before {
   content: "";
+}
+
+.navbar {
+  margin-bottom: 1em;
+}
+
+.card > .table {
+  margin-bottom: 0px;
 }
 
 /*
