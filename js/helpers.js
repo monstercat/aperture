@@ -103,6 +103,10 @@ function destroy (what, id, done) {
   requestSimple("DELETE", what + '/' + id, null, done)
 }
 
+function post (what, id, obj, done) {
+  requestSimple("POST", what + '/' + id, obj, done)
+}
+
 //Takes form data with dots in the names and makes it an options
 /*
 {
