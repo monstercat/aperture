@@ -30,3 +30,21 @@ function toasty (obj, time) {
 function reloadPage () {
   stateChange(location.pathname + location.search)
 }
+
+
+function formErrors (form, errs) {
+  var errDiv = form.querySelector('[role=form-errors]')
+  if(!errDiv) {
+    var div = document.createElement('div')
+    div.setAttribute("class", "hide alert alert-danger")
+    div.setAttribute("role", "form-errors")
+    form.insertBefore(div, form.firstChild)
+    console.log('div', div)
+    console.log('form', form)
+    return formErrors(form, errs)
+  }
+  console.log('errDiv', errDiv)
+  errDiv.innerHTML = errs.join("<br />")
+  errDiv.classList.toggle('hide', errs.length == 0)
+  return errs.length > 0
+}
