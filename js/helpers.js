@@ -204,3 +204,9 @@ function renderLoading (obj) {
 function renderError (err) {
   renderContent('error', {error: err.toString()})
 }
+
+function renderHeader (obj) {
+  var node = findNode('[role=header]')
+  console.log('node', node)
+  render('header', transformPage(obj), node)
+}

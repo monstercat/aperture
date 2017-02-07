@@ -25,10 +25,10 @@ function authenticateTwoFactorToken (e) {
   requestJSON({
     url: endhost + '/signin/token',
     method: 'POST',
-    data: getDataSet(el),
+    data: getDataSet(e.target),
     withCredentials: true
   }, function (err, obj, xhr) {
-    if (err) return window.alert(err.message)
+    if (err) return formErrors(e.target, err.message)
     onSignIn()
   })
 }
@@ -48,6 +48,7 @@ function onSignIn() {
   getSession(function (err, sess) {
     if (err) return window.alert(err.message)
     session = sess
+    renderHeader()
     go(getRedirectTo())
   })
 }

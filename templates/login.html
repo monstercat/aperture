@@ -43,10 +43,7 @@
                         With Social
                     </div>
                     <div class="card-block">
-                        <div class="form-group">
-                            <button class="btn btn-default" action="signInFacebook"><span class="fa fa-facebook-official"></span> Sign In With Facebook</button>
-                            <button class="btn btn-default" action="signInGoogle"><span class="fa fa-google"></span> Sign In With Google</button>
-                        </div>
+                        To sign in with Facebook or Google, <a href="https://www.monstercat.com/signin">sign in at monstercat.com</a> and come back here.
                     </div>
                 </div>
             </div>
@@ -61,22 +58,22 @@
 <script type="text/template"
         data-route="authenticate-token"
         data-process="processDefault"
-        data-template="authenticate-token"h"
+        data-template="authenticate-token"
         data-title="Sign In 2 Factor">
     <div class="container">
         <h1>Authenticate Token</h1>
-        <div class="panel">
-            <table class="form mobile" data-set="auth-token">
-                <tr>
-                    <th>Token</th>
-                    <td>
-                        <input type="text" name="token" placeholder="Enter Here"/>
-                    </td>
-                </tr>
-            </table>
-            <div class="button-group">
-                <button class="button--cta button--full" action="authenticateTwoFactorToken" data-set-target="auth-token">Authorize</button>
-                <button class="button--full" action="resendTwoFactorToken">Resend Token</button>
+        <div class="card">
+            <div class="card-block">
+                <form onsubmit="authenticateTwoFactorToken(event)">
+                    <div class="form-group">
+                        <label>Token</label>
+                        <input type="text" class="form-control" name="token" placeholder="Enter Here" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Authorize</button>
+                        <button class="btn btn-secondary" type="button" onclick="resendTwoFactorToken(event)">Resend Token</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
