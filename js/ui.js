@@ -33,6 +33,10 @@ function reloadPage () {
 
 
 function formErrors (form, errs) {
+  errs = errs || []
+  if(typeof(errs) == 'string') {
+    errs = [errs]
+  }
   var errDiv = form.querySelector('[role=form-errors]')
   if(!errDiv) {
     var div = document.createElement('div')

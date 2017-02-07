@@ -1,0 +1,39 @@
+
+<script type="text/template"
+        data-partial="true"
+        data-template="no-access">
+<h2>No Access</h2>
+<p>
+  {{^isSignedIn}}
+    <a class="btn btn-primary" href="/sign-in">Sign In</a>
+  {{/isSignedIn}}
+  {{#isSignedIn}}
+    <p>
+      <a class="btn btn-primary" href="https://www.monstercat.com">Back to monstercat.com</a>
+    </p>
+  {{/isSignedIn}}
+</p>
+</script>
+
+<script type="text/template"
+        data-template="loading"
+        data-partial="true"
+        >
+<div class="loading">
+  Loading...
+</div>
+</script>
+
+<script type="text/template"
+        data-template="error"
+        data-partial="true">
+<div class="alert alert-danger">
+  {{error}}
+</div>
+</script>
+
+<script type="text/template" data-template="toast">
+    <div class="toast{{#error}} error{{/error}}" >
+        <p>{{{message}}}</p>
+    </div>
+</script>

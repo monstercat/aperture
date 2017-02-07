@@ -193,6 +193,10 @@ function transformPage (obj) {
   return obj
 }
 
+function processDefault (state, node, xhr) {
+  renderContent(node.getAttribute('data-template'), transformPage())
+}
+
 function renderLoading (obj) {
   renderContent('loading', transformPage(obj))
 }

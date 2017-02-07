@@ -1,0 +1,118 @@
+<script type="text/template"
+        data-route="^(signin|sign-in)"
+        data-process="processDefault"
+        data-template="signin"
+        data-title="Sign In">
+    {{^isSignedIn}}
+    <div class="container">
+        {{^buying}}
+        <h1>Sign In</h1>
+        {{/buying}}
+        {{#buying}}
+        <div class="panel">
+            <h1>Sign In to Continue</h1>
+            <p>Sign in or create an account to continue buying {{>buying}}.</p>
+        </div>
+        {{/buying}}        
+        <div class="card-deck">
+            <div class="card panel-default">
+                <div class="card-header">
+                    With Email
+                </div>
+                <div class="card-block">
+                    <form onsubmit="signIn(event)">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="form-control" name="email" placeholder="kitty@monstercat.com" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input class="form-control" name="password" placeholder="a secret" type="password" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                        </div>
+                        <p>
+                            <a href="/forgot-password">Forgot Password</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+                <div class="card panel-default">
+                    <div class="card-header">
+                        With Social
+                    </div>
+                    <div class="card-block">
+                        <div class="form-group">
+                            <button class="btn btn-default" action="signInFacebook"><span class="fa fa-facebook-official"></span> Sign In With Facebook</button>
+                            <button class="btn btn-default" action="signInGoogle"><span class="fa fa-google"></span> Sign In With Google</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/isSignedIn}}
+    {{#isSignedIn}}
+        <p>You are already signed in.</p>
+    {{/isSignedIn}}
+</script>
+
+<script type="text/template"
+        data-route="authenticate-token"
+        data-process="processDefault"
+        data-template="authenticate-token"h"
+        data-title="Sign In 2 Factor">
+    <div class="container">
+        <h1>Authenticate Token</h1>
+        <div class="panel">
+            <table class="form mobile" data-set="auth-token">
+                <tr>
+                    <th>Token</th>
+                    <td>
+                        <input type="text" name="token" placeholder="Enter Here"/>
+                    </td>
+                </tr>
+            </table>
+            <div class="button-group">
+                <button class="button--cta button--full" action="authenticateTwoFactorToken" data-set-target="auth-token">Authorize</button>
+                <button class="button--full" action="resendTwoFactorToken">Resend Token</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template"
+        data-route="^forgot-password"
+        data-template="forgot-password"
+        data-process="processDefault"
+        data-title="Forgot Password?">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Forgot Password?
+            </div>
+            <div class="card-block">
+                <form onsubmit="recoverPassword(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="kitty@monstercat.com" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" action="recoverPassword" data-set-target="credentials">Send Reset Link</button> or <a href="/sign-in">cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template"
+        data-route="^signout"
+        data-title="Sign Out"
+        data-template="signout"
+        data-process="processSignOut">
+    <div class="container">
+        Signing out...
+    </div>
+</script>
