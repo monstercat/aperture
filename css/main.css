@@ -83,6 +83,18 @@ span.s.s1:before {
   margin-bottom: 0px;
 }
 
+.custom-file-control {
+  color: #777;
+}
+
+.custom-file-control.has-file {
+  color: #292b2c;
+}
+
+.custom-file-control.has-file:lang(en)::after {
+  content: "";
+}
+
 /*
 
  Dancing Cat Loading

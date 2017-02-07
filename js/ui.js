@@ -39,12 +39,31 @@ function formErrors (form, errs) {
     div.setAttribute("class", "hide alert alert-danger")
     div.setAttribute("role", "form-errors")
     form.insertBefore(div, form.firstChild)
-    console.log('div', div)
-    console.log('form', form)
     return formErrors(form, errs)
   }
-  console.log('errDiv', errDiv)
   errDiv.innerHTML = errs.join("<br />")
   errDiv.classList.toggle('hide', errs.length == 0)
   return errs.length > 0
+}
+
+function bindFileInputs () {
+  var inputs = findNodes('input[type=file]')
+  inputs.forEach(function (input) {
+    input.addEventListener('change', function (e) {
+      var input = e.target
+      var files = input.files
+      var span = input.nextElementSibling
+      if(files.length == 0) {
+        span.textContent = ''
+        span.classList.toggle('has-file', false)
+      }
+      var names = []
+      for(var i = 0; i < files.length; i++) {
+        names.push(files[i].name)
+      }
+      names = names.join(", ")
+      span.textContent = names
+      span.classList.toggle('has-file', true)
+    })
+  })
 }
