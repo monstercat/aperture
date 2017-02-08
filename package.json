@@ -1,7 +1,8 @@
 {
   "name": "aperture",
   "version": "1.0.0",
-  "main": "declare.js",
+  "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -9,14 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/Monstercat/aperture.git"
   },
-  "author": "Monstercat",
+  "author": "Colin Kierans",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Monstercat/aperture/issues"
   },
   "homepage": "https://github.com/Monstercat/aperture#readme",
-  "description": "",
+  "description": "A simple tool to serve or build portal sites.",
   "dependencies": {
+    "argparse": "^1.0.9",
     "declare": "git+ssh://git@github.com/monstercat/declare.git",
     "express": "^4.14.1",
     "mustache": "^2.3.0",

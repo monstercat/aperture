@@ -7,7 +7,7 @@ function processSignOut (state, o) {
 
 function signIn (e) {
   e.preventDefault()
-  requestJSON({
+  request({
     url: endhost + '/signin',
     method: 'POST',
     withCredentials: true,
@@ -22,7 +22,7 @@ function signIn (e) {
 
 function authenticateTwoFactorToken (e) {
   e.preventDefault()
-  requestJSON({
+  request({
     url: endhost + '/signin/token',
     method: 'POST',
     data: getDataSet(e.target),
@@ -34,7 +34,7 @@ function authenticateTwoFactorToken (e) {
 }
 
 function resendTwoFactorToken (e) {
-  requestJSON({
+  request({
     url: endhost + '/signin/token/resend',
     method: 'POST',
     withCredentials: true
@@ -54,7 +54,7 @@ function onSignIn() {
 }
 
 function signOut (e) {
-  requestJSON({
+  request({
     url: endhost + '/signout',
     method: 'POST',
     withCredentials: true
@@ -72,7 +72,7 @@ function recoverPassword (e) {
     return formErrors(e.target, "Valid email required")
   }
   data.returnUrl = location.protocol + '//' + location.host + '/reset-password?key=:code'
-  requestJSON({
+  request({
     url: endhost + '/password/send-verification',
     method: 'POST',
     withCredentials: true,

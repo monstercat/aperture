@@ -34,19 +34,19 @@ function reloadPage () {
 
 function formErrors (form, errs) {
   errs = errs || []
-  if(typeof(errs) == 'string') {
+  if(errs.constructor != Array) {
     errs = [errs]
   }
   var errDiv = form.querySelector('[role=form-errors]')
   if(!errDiv) {
     var div = document.createElement('div')
-    div.setAttribute("class", "hide alert alert-danger")
+    div.setAttribute("class", "hidden-xs-up alert alert-danger")
     div.setAttribute("role", "form-errors")
     form.insertBefore(div, form.firstChild)
     return formErrors(form, errs)
   }
   errDiv.innerHTML = errs.join("<br />")
-  errDiv.classList.toggle('hide', errs.length == 0)
+  errDiv.classList.toggle('hidden-xs-up', errs.length == 0)
   return errs.length > 0
 }
 

@@ -82,7 +82,7 @@ function dateObjSorter (a, b) {
 }
 
 function requestSimple (method, what, obj, done) {
-  requestJSON({
+  request({
     url: endpoint + '/' + what,
     method: method,
     data: obj,
@@ -158,7 +158,7 @@ function dataDotReducer (inData) {
 /* */
 
 function getSession (done) {
-  requestJSON({
+  request({
     url: endpoint + '/self/session',
     withCredentials: true
   }, done)
@@ -207,6 +207,5 @@ function renderError (err) {
 
 function renderHeader (obj) {
   var node = findNode('[role=header]')
-  console.log('node', node)
   render('header', transformPage(obj), node)
 }
