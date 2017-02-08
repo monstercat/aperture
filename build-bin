@@ -50,6 +50,7 @@ gawk -v root=src -f scripts/stamp-qs.awk < src/html/head.html >> bin/tmp.html
 cat src/html/begin-body.html >> bin/tmp.html
 cat src/html/body.html >> bin/tmp.html
 cat src/templates/*.html >> bin/tmp.html
+cat node_modules/aperture/templates/*.html >> bin/tmp.html
 cat src/html/end.html >> bin/tmp.html
 mv bin/tmp.html bin/index.html
 
