@@ -46,3 +46,23 @@
   {{#options}}<option value="{{value}}">{{label}}</option>
   {{/options}}
 </script>
+
+
+<script type="text/template" 
+        data-template="pagination" 
+        data-partial
+        >
+{{#pagination}}
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      {{#links}}
+      <li class="page-item{{#disabled}} disabled{{/disabled}}{{#active}} active{{/active}}">
+        <a class="page-link"{{^disabled}} href="{{href}}"{{/disabled}}{{#disabled}} tabindex="-1"{{/disabled}}>
+          {{label}}
+        </a>
+      </li>
+      {{/links}}
+    </ul>
+  </nav>
+{{/pagination}}
+</script>

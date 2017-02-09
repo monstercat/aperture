@@ -95,6 +95,14 @@ span.s.s1:before {
   content: "";
 }
 
+.csl:before {
+  content: ", ";
+}
+
+.csl:first-of-type:before {
+  content: "";
+}
+
 /*
 
  Dancing Cat Loading

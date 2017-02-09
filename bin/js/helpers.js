@@ -169,6 +169,14 @@ function dataDotReducer (inData) {
   }, {})
 }
 
+function randomChooser(n){
+  return Math.floor(Math.random() * n+1);
+}
+
+function randomItem (items) {
+  return items[randomChooser(items.length) - 1]
+}
+
 /* */
 
 function getSession (done) {
@@ -182,6 +190,16 @@ function hasArtistAccess() {
   return session && session.permissions && session.user && session.user.type && session.user.type.indexOf('artist') >= 0
 }
 
+function hasAdminAccess() {
+  if(session && session.permissions && session.user && session.user.type) {
+    for(var i = 0; i < session.user.type.length; i++) {
+      if (session.user.type[i].indexOf('admin') >= 0) {
+        return true
+      }
+    }
+  }
+  return false
+}
 
 function hasEventAccess() {
   return session.permissions && session.permissions.event && session.permissions.event.create == true
@@ -214,6 +232,19 @@ function transformPage (obj) {
 
 function processDefault (state, node, xhr) {
   renderContent(node.getAttribute('data-template'), transformPage())
+}
+
+function getPagination (data, opts) {
+  var links = []
+  var numPages = Math.ceil(data.total / data.limit)
+  var currentPage = opts.currentPage || 1
+  links.push({
+    label: 'Prev',
+    disabled: currentPage != 1
+  })
+  return {
+
+  }
 }
 
 
