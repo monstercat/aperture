@@ -35,6 +35,20 @@ function appendMetaData (meta) {
   }
 }
 
+function zeroPad (num, size) {
+  var str = num.toString()
+  return repeatString('0', size).substr(0,size - str.length)+str
+}
+
+function repeatString(str, times) {
+  if (typeof str.repeat == 'function') {
+    return str.repeat(times)
+  }
+  return Array.apply(null, Array(times)).reduce(function (s) {
+    return s + str
+  }, "")
+}
+
 function formatDate (date) {
   if (!formatDate.months) {
     formatDate.months = [
@@ -61,7 +75,7 @@ function formatDate (date) {
 function formatDateTime (datetime) {
   var date = new Date(datetime)
   var offset = date.getTimezoneOffset()/60
-  return formatDate(date) + ' ' + pad(date.getHours(),2) + ':' + pad(date.getMinutes(),2) + ' (UTC' + (offset > 0 ? '+' : '') + offset + ')'
+  return formatDate(date) + ' ' + zeroPad(date.getHours(),2) + ':' + zeroPad(date.getMinutes(),2) + ' (UTC' + (offset > 0 ? '+' : '') + offset + ')'
 }
 
 function transformDatedObj (obj, field) {
@@ -168,6 +182,11 @@ function hasArtistAccess() {
   return session && session.permissions && session.user && session.user.type && session.user.type.indexOf('artist') >= 0
 }
 
+
+function hasEventAccess() {
+  return session.permissions && session.permissions.event && session.permissions.event.create == true
+}
+
 function isSignedIn () {
   return !!(session && session.user)
 }
@@ -208,4 +227,24 @@ function renderError (err) {
 function renderHeader (obj) {
   var node = findNode('[role=header]')
   render('header', transformPage(obj), node)
+}
+
+
+function transformArtistsDropdown (obj) {
+  var options = obj.results.map(function (details) {
+    return {
+      label: details.name,
+      value: JSON.stringify({_id: details._id, name: details.name})
+    }
+
+  })
+  options = options.sort(function (a, b) {
+    if(a.label == b.label) {
+      return -1
+    }
+    return a.label > b.label ? 1 : -1
+  })
+  return {
+    options: options
+  }
 }
