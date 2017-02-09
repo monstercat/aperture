@@ -99,14 +99,3 @@ function transformArtistsDropdown (obj) {
     options: options
   }
 }
-
-/*
-obj = {
-  results: [] //Array of results
-  limit: [] //How many per page
-  skip: [] //How many we have skipped
-}
-*/
-function getPagination (obj) {
-
-}
