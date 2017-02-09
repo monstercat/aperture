@@ -113,3 +113,30 @@
         Signing out...
     </div>
 </script>
+
+<script type="text/template"
+        data-route="^reset-password"
+        data-process="processDefault"
+        data-template="reset-password"
+        data-title="Reset Password">
+    <div class="container">
+        <h1>Reset Password</h1>
+        <div class="card">
+            <div class="card-block">
+                <form onsubmit="updatePassword(event)">
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="form-control" type="password" name="password" />
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm</label>
+                        <input class="form-control" type="password" name="password_confirm" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Update Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>

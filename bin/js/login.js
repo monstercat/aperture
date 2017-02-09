@@ -65,6 +65,28 @@ function signOut (e) {
   })
 }
 
+function updatePassword (e) {
+  e.preventDefault()
+  var data = getDataSet(e.target)
+  if (!data.password) {
+    return formErrors(e.target, "Password missing")
+  }
+  if (data.password != data.password_confirm) {
+    return formErrors(e.target, "Passwords don't match")
+  }
+  data.code = queryStringToObject(window.location.search).key
+  request({
+    url: endhost + '/password/reset',
+    method: 'POST',
+    withCredentials: true,
+    data: data
+  }, function (err, obj, xhr) {
+    if (err) return formErrors(e.target, err.toString())
+    toasty('Password saved')
+    go('/signin')
+  })
+}
+
 function recoverPassword (e) {
   e.preventDefault()
   var data = getDataSet(e.target)
@@ -79,7 +101,7 @@ function recoverPassword (e) {
     data: data
   }, function (err, obj, xhr) {
     if (err) return window.alert(err.message)
-    window.alert(strings.passwordResetEmail)
+    toasty("Password recovery email sent")
   })
 }
 
