@@ -216,6 +216,22 @@ function processDefault (state, node, xhr) {
   renderContent(node.getAttribute('data-template'), transformPage())
 }
 
+
+/**
+ * Renders the content of a template into the [role=content] element
+ *
+ * @arg {String}  name The name of template to look up.
+ * @arg {Object}  scope The object of data to use to render with.
+ * @arg {Object}  partials The partials to be used in rendering.
+ * 
+ * @returns {Element}
+ */
+function renderContent (name, scope, partials) {
+  var content = findNode('[role=content]')
+  render(name, scope, content, partials)
+  loadNodeSources(content)
+}
+
 function renderLoading (obj) {
   renderContent('loading', transformPage(obj))
 }
@@ -227,24 +243,4 @@ function renderError (err) {
 function renderHeader (obj) {
   var node = findNode('[role=header]')
   render('header', transformPage(obj), node)
-}
-
-
-function transformArtistsDropdown (obj) {
-  var options = obj.results.map(function (details) {
-    return {
-      label: details.name,
-      value: JSON.stringify({_id: details._id, name: details.name})
-    }
-
-  })
-  options = options.sort(function (a, b) {
-    if(a.label == b.label) {
-      return -1
-    }
-    return a.label > b.label ? 1 : -1
-  })
-  return {
-    options: options
-  }
 }

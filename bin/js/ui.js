@@ -71,3 +71,31 @@ function bindFileInputs () {
     })
   })
 }
+
+function processArtistsDropdown (state, sel, err, data) {
+  if(state == 'start') {
+    return sel.innerHTML='<option>loading...</option>'
+  }
+  var obj = transformArtistsDropdown(data)
+  render('artists-dropdown', obj, sel)
+}
+
+
+function transformArtistsDropdown (obj) {
+  var options = obj.results.map(function (details) {
+    return {
+      label: details.name,
+      value: JSON.stringify({_id: details._id, name: details.name})
+    }
+
+  })
+  options = options.sort(function (a, b) {
+    if(a.label == b.label) {
+      return -1
+    }
+    return a.label > b.label ? 1 : -1
+  })
+  return {
+    options: options
+  }
+}

@@ -37,3 +37,12 @@
         <p>{{{message}}}</p>
     </div>
 </script>
+
+<script type="text/template" 
+        data-template="artists-dropdown" 
+        data-partial
+        >
+  <option value="">-select artist-</option>
+  {{#options}}<option value="{{value}}">{{label}}</option>
+  {{/options}}
+</script>
