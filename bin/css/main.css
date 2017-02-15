@@ -103,12 +103,42 @@ span.s.s1:before {
   content: "";
 }
 
-/*
 
- Dancing Cat Loading
-
-*/
+/* Loading animation */
 .loading {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  min-height: 200px;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  border: 0.25em solid rgba(0, 0, 0, 0.1);
+  border-top-color: #000;
+  border-radius: 50%;
+  -webkit-animation: loading 1s infinite linear;
+  animation: loading 1s infinite linear;
+  margin: 2em;
+}
+
+.loading--black {
+  min-height: 500px;
+  background: #111;
+}
+
+.loading--black .loader {
+  border-color: rgba(255,255,255,0.1);
+  border-top-color: #fff;
+}
+
+/* Dancing Cat Loading */
+.loading--cat {
   width: 100%;
   position: relative;
   height: 300px;
@@ -121,7 +151,7 @@ span.s.s1:before {
   overflow: hidden;
 }
 
-.loading:before {
+.loading--cat:before {
   position: absolute;
   width: 200px;
   height: 200px;
@@ -138,7 +168,17 @@ span.s.s1:before {
   transform-origin: center 80%;
 }
 
-/* The animation code */
+@-webkit-keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes dance {
     0% {
       transform: rotate(-10deg);
