@@ -66,3 +66,19 @@
   </nav>
 {{/pagination}}
 </script>
+
+
+<script type="text/template"
+        data-template="breadcrumbs"
+        data-partial
+        >
+{{#breadcrumbs.length}}
+<ol class="breadcrumb">
+  {{#breadcrumbs}}
+  <li class="breadcrumb-item{{#active}} active{{/active}}">
+    <a href="{{href}}">{{label}}</a>
+  </li>
+  {{/breadcrumbs}}
+</ol>
+{{/breadcrumbs.length}}
+</script>

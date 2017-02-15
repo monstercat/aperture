@@ -11,7 +11,7 @@ function Browser (opts) {
       this.options[k] = defaults[k]
     }
   }
-
+  this.getSourceQueryObjectMiddleware = false
   this.data = {}
 }
 
@@ -20,6 +20,10 @@ Browser.prototype.readUrl = function (qs) {
 }
 
 Browser.prototype.getSourceQueryString = function () {
+  return objectToQueryString(this.getSourceQueryObject())
+}
+
+Browser.prototype.getSourceQueryObject = function () {
   var qs = {
     fields: this.options.fields,
     sortValue: this.options.sortValue,
@@ -38,7 +42,11 @@ Browser.prototype.getSourceQueryString = function () {
   console.log('currentPage', currentPage)
   qs.skip = (currentPage - 1) * this.options.limit
 
-  return objectToQueryString(qs)
+  if(this.getSourceQueryObjectMiddleware) {
+    qs = this.getSourceQueryObjectMiddleware(qs)
+  }
+
+  return qs
 }
 
 /*

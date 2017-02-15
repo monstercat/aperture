@@ -234,20 +234,6 @@ function processDefault (state, node, xhr) {
   renderContent(node.getAttribute('data-template'), transformPage())
 }
 
-function getPagination (data, opts) {
-  var links = []
-  var numPages = Math.ceil(data.total / data.limit)
-  var currentPage = opts.currentPage || 1
-  links.push({
-    label: 'Prev',
-    disabled: currentPage != 1
-  })
-  return {
-
-  }
-}
-
-
 /**
  * Renders the content of a template into the [role=content] element
  *
@@ -274,4 +260,9 @@ function renderError (err) {
 function renderHeader (obj) {
   var node = findNode('[role=header]')
   render('header', transformPage(obj), node)
+}
+
+function renderBreadcrumbs (obj) {
+  var node = findNode('[role=breadcrumbs]')
+  render('breadcrumbs', transformPage(obj), node)
 }
