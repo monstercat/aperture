@@ -191,7 +191,7 @@ function getSession (done) {
 }
 
 function hasArtistAccess() {
-  return session && session.permissions && session.user && session.user.type && session.user.type.indexOf('artist') >= 0
+  return session && session.permissions && userIsArtist(session.user)
 }
 
 function hasAdminAccess() {
@@ -203,6 +203,10 @@ function hasAdminAccess() {
     }
   }
   return false
+}
+
+function userIsArtist (user) {
+  return user && user.type && user.type.indexOf('artist') >= 0
 }
 
 function hasEventAccess() {
