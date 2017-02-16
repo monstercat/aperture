@@ -16,8 +16,20 @@
 </script>
 
 <script type="text/template"
+        data-template="loading-error"
+        data-partial
+        >
+{{#loading}}
+  {{>loading}}
+{{/loading}}
+{{#error}}
+  {{>error}}
+{{/error}}
+</script>
+
+<script type="text/template"
         data-template="loading"
-        data-partial="true"
+        data-partial
         >
 <div class="loading">
   <span class="loader"></span>
@@ -26,7 +38,7 @@
 
 <script type="text/template"
         data-template="error"
-        data-partial="true">
+        data-partial>
 <div class="alert alert-danger">
   {{error}}
 </div>
@@ -81,4 +93,20 @@
   {{/breadcrumbs}}
 </ol>
 {{/breadcrumbs.length}}
+</script>
+
+
+<script type="text/template"
+        data-template="tabs"
+        data-partial
+        >
+{{#tabs.length}}
+  <ul class="nav nav-tabs">
+    {{#tabs}}
+    <li class="nav-item">
+      <a class="nav-link{{#active}} active{{/active}}" href="{{href}}">{{label}}</a>
+    </li>
+    {{/tabs}}
+  </ul>
+{{/tabs.length}}
 </script>

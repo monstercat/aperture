@@ -7,7 +7,7 @@ function processSignOut (state, o) {
 
 function signIn (e) {
   e.preventDefault()
-  var data = formToData(e.target)
+  var data = formToObject(e.target)
   var errs = []
   if(!data.email || data.email.indexOf('@') <= 0) {
     errs.push('Please provide a valid email')
@@ -36,7 +36,7 @@ function authenticateTwoFactorToken (e) {
   request({
     url: endhost + '/signin/token',
     method: 'POST',
-    data: formToData(e.target),
+    data: formToObject(e.target),
     withCredentials: true
   }, function (err, obj, xhr) {
     if (err) return formErrors(e.target, err.message)
@@ -78,7 +78,7 @@ function signOut (e) {
 
 function updatePassword (e) {
   e.preventDefault()
-  var data = formToData(e.target)
+  var data = formToObject(e.target)
   if (!data.password) {
     return formErrors(e.target, "Password missing")
   }
@@ -100,7 +100,7 @@ function updatePassword (e) {
 
 function recoverPassword (e) {
   e.preventDefault()
-  var data = formToData(e.target)
+  var data = formToObject(e.target)
   if(!data.email || data.email.indexOf('@') <= 0) {
     return formErrors(e.target, "Valid email required")
   }

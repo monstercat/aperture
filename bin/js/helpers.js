@@ -95,6 +95,10 @@ function dateObjSorter (a, b) {
   return a.dateObj > b.dateObj ? -1 : 1
 }
 
+function isMongoDBObjectId (str) {
+  return str.match(/^[a-f\d]{24}$/i)
+}
+
 function requestSimple (method, what, obj, done) {
   request({
     url: endpoint + '/' + what,
@@ -228,6 +232,18 @@ function transformPage (obj) {
   obj.sessionName = getSessionName()
   obj.hasArtistAccess = hasArtistAccess()
   return obj
+}
+
+function arrayToMustacheArray (arr) {
+  if(!arr) {
+    return []
+  }
+  return arr.map(function (val, index) {
+    return {
+      index: index,
+      value: val
+    }
+  })
 }
 
 function processDefault (state, node, xhr) {
