@@ -73,6 +73,9 @@ function formatDate (date) {
 }
 
 function formatDateTime (datetime) {
+  if(datetime == undefined) {
+    return 'No Date'
+  }
   var date = new Date(datetime)
   var offset = date.getTimezoneOffset()/60
   return formatDate(date) + ' ' + zeroPad(date.getHours(),2) + ':' + zeroPad(date.getMinutes(),2) + ' (UTC' + (offset > 0 ? '+' : '') + offset + ')'
