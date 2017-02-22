@@ -13,10 +13,18 @@ function Browser (opts) {
   }
   this.getSourceQueryObjectMiddleware = false
   this.data = {}
+  this.sourceQueryString = {}
 }
 
 Browser.prototype.readUrl = function (qs) {
   this.urlData = queryStringToObject(qs)
+  if(this.options.defaultUrlData) {
+    for(var key in this.options.defaultUrlData) {
+      if(!this.urlData.hasOwnProperty(key)) {
+        this.urlData[key] = this.options.defaultUrlData[key]
+      }
+    }
+  }
 }
 
 Browser.prototype.getSourceQueryString = function () {
@@ -31,6 +39,12 @@ Browser.prototype.getSourceQueryObject = function () {
     limit: this.options.limit
   }
 
+  if(this.sourceQueryString) {
+    for(var i in this.sourceQueryString) {
+      qs[i] = this.sourceQueryString[i]
+    }
+  }
+
   if(this.urlData.search && this.options.fuzzyFields) {
     var fuzzyOrs = this.options.fuzzyFields.map(function (field) {
       return field + ',' + this.urlData.search
@@ -38,9 +52,21 @@ Browser.prototype.getSourceQueryObject = function () {
     qs.fuzzyOr = fuzzyOrs.join(',')
   }
 
-  var currentPage = this.getCurrentPage()
-  console.log('currentPage', currentPage)
-  qs.skip = (currentPage - 1) * this.options.limit
+  if(this.options.filterFields) {
+    var filters = this.options.filterFields
+      .filter(function (field) {
+        return this.urlData.hasOwnProperty(field)
+      }.bind(this))
+      .map(function (field) {
+        return field + ',' + this.urlData[field]
+      }.bind(this))
+    
+    if(filters.length > 0) {
+      qs.filters = filters.join(',')
+    }
+  }
+
+  qs.skip = this.getSkip()
 
   if(this.getSourceQueryObjectMiddleware) {
     qs = this.getSourceQueryObjectMiddleware(qs)
@@ -62,6 +88,11 @@ Browser.prototype.setData = function (data) {
   this.data = data
 }
 
+Browser.prototype.getSkip = function () {
+  var currentPage = this.getCurrentPage()
+  return (currentPage - 1) * this.options.limit
+}
+
 Browser.prototype.getNumPages = function () {
   if(!this.data) {
     return 0
@@ -71,7 +102,7 @@ Browser.prototype.getNumPages = function () {
 }
 
 Browser.prototype.getPageUrl = function (page) {
-  var qo = this.urlData
+  var qo = JSON.parse(JSON.stringify(this.urlData))
   if(page > 1) {
     qo.page = page
   }
@@ -126,8 +157,14 @@ Browser.prototype.getPagination = function () {
       href: this.getPageUrl(numPages)
     })
   }
+
+  var frm = this.getSkip() + 1
+  var to = Math.min(this.data.total, frm + this.options.limit - 1)
+
   return {
     links: links,
-    numPages: numPages
+    numPages: numPages,
+    from: frm,
+    to: to
   }
 }
