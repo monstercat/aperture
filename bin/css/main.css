@@ -103,6 +103,18 @@ span.s.s1:before {
   content: "";
 }
 
+.form-page-filter {
+  margin: 0 0 1em 0;
+}
+
+.form-page-filter .form-group {
+  margin: 0 0.5em 0 0;
+}
+
+.form-page-filter label input[type=checkbox] {
+  margin-right: 0.25em;
+}
+
 
 /* Loading animation */
 .loading {

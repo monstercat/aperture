@@ -72,6 +72,14 @@ function bindFileInputs () {
   })
 }
 
+function processWebsiteDetailsDropdown (state, sel, err, data) {
+  if (state == 'start') {
+    return sel.innerHTML = '<option>loading...</option>'
+  }
+  var obj = transformWebsiteDetailsDropdown(data, sel.getAttribute('data-value'))
+  render('website-details-dropdown-options', obj, sel)
+}
+
 function processArtistsDropdown (state, sel, err, data) {
   if(state == 'start') {
     return sel.innerHTML='<option>loading...</option>'
@@ -80,6 +88,34 @@ function processArtistsDropdown (state, sel, err, data) {
   render('artists-dropdown', obj, sel)
 }
 
+
+function transformWebsiteDetailsDropdown (obj, selectedValue) {
+  var options = obj.results.map(function (details) {
+    var parts = [details.name || 'no name']
+    parts.push(details.vanityUri || 'no uri')
+    parts.push(details.public ? 'Public' : 'Private')
+    parts.push(details._id)
+
+    label = parts.join(' / ')
+
+    return {
+      label: label,
+      name: details.name,
+      value: details._id,
+      selected: details._id == selectedValue
+    }
+
+  })
+  options = options.sort(function (a, b) {
+    if(a.name == b.name) {
+      return -1
+    }
+    return a.name > b.name ? 1 : -1
+  })
+  return {
+    options: options
+  }
+}
 
 function transformArtistsDropdown (obj) {
   var options = obj.results.map(function (details) {

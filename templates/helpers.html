@@ -110,3 +110,20 @@
   </ul>
 {{/tabs.length}}
 </script>
+
+<script type="text/template"
+        data-template="website-details-dropdown"
+        data-partial
+        >
+<select data-source="$endpoint/website/?fields=name,vanityUri" data-cors name="{{name}}"{{#id}} id="{{id}}"{{/id}} class="form-control" data-process="processWebsiteDetailsDropdown" data-value="{{value}}"></select>
+</script>
+
+<script type="text/template" 
+        data-template="website-details-dropdown-options" 
+        data-partial
+        >
+  <option value="">-select website details-</option>
+  {{#options}}<option value="{{value}}"{{#selected}} selected{{/selected}}>{{label}}</option>
+  {{/options}}
+</script>
+
