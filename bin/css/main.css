@@ -51,6 +51,10 @@ body {
   margin: 0 auto;
 }
 
+tr.tr-anchor:hover {
+  cursor: pointer;
+}
+
 table tr td:last-child {
     white-space: nowrap;
     width: 1px;
