@@ -2,17 +2,19 @@
 <script type="text/template"
         data-partial="true"
         data-template="no-access">
-<h2>No Access</h2>
-<p>
-  {{^isSignedIn}}
-    <a class="btn btn-primary" href="/sign-in">Sign In</a>
-  {{/isSignedIn}}
-  {{#isSignedIn}}
-    <p>
-      <a class="btn btn-primary" href="https://www.monstercat.com">Back to monstercat.com</a>
-    </p>
-  {{/isSignedIn}}
-</p>
+<div class="container">
+  <h2>No Access</h2>
+  <p>
+    {{^isSignedIn}}
+      <a class="btn btn-primary" href="/sign-in">Sign In</a>
+    {{/isSignedIn}}
+    {{#isSignedIn}}
+      <p>
+        <a class="btn btn-primary" href="https://www.monstercat.com">Back to monstercat.com</a>
+      </p>
+    {{/isSignedIn}}
+  </p>
+</div>
 </script>
 
 <script type="text/template"
@@ -115,7 +117,7 @@
         data-template="website-details-dropdown"
         data-partial
         >
-<select data-source="$endpoint/website/?fields=name,vanityUri" data-cors name="{{name}}"{{#id}} id="{{id}}"{{/id}} class="form-control" data-process="processWebsiteDetailsDropdown" data-value="{{value}}"></select>
+<select data-source="$endpoint/website/?fields=name,vanityUri&filters=public,1" data-cors name="{{name}}"{{#id}} id="{{id}}"{{/id}} class="form-control" data-process="processWebsiteDetailsDropdown" data-value="{{value}}"></select>
 </script>
 
 <script type="text/template" 
@@ -126,4 +128,3 @@
   {{#options}}<option value="{{value}}"{{#selected}} selected{{/selected}}>{{label}}</option>
   {{/options}}
 </script>
-

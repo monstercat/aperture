@@ -24,7 +24,11 @@ function signIn (e) {
     withCredentials: true,
     data: data
   }, function (err, obj, xhr) {
-    if (err) return window.alert(err.message)
+    if (err) {
+      toasty(new Error(err.message))
+      formErrors(e.target, err.message)
+      return
+    }
     if (xhr.status != 209)
       return onSignIn()
     go('/authenticate-token')
@@ -57,7 +61,10 @@ function resendTwoFactorToken (e) {
 
 function onSignIn() {
   getSession(function (err, sess) {
-    if (err) return window.alert(err.message)
+    if (err) {
+      toasty(new Error(err.message))
+      return
+    } 
     session = sess
     renderHeader()
     go(getRedirectTo())
