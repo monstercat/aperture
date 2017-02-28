@@ -103,7 +103,7 @@
         data-partial
         >
 {{#tabs.length}}
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs mb-sm-2">
     {{#tabs}}
     <li class="nav-item">
       <a class="nav-link{{#active}} active{{/active}}" href="{{href}}">{{label}}</a>
@@ -111,20 +111,4 @@
     {{/tabs}}
   </ul>
 {{/tabs.length}}
-</script>
-
-<script type="text/template"
-        data-template="website-details-dropdown"
-        data-partial
-        >
-<select data-source="$endpoint/website/?fields=name,vanityUri&filters=public,1" data-cors name="{{name}}"{{#id}} id="{{id}}"{{/id}} class="form-control" data-process="processWebsiteDetailsDropdown" data-value="{{value}}"></select>
-</script>
-
-<script type="text/template" 
-        data-template="website-details-dropdown-options" 
-        data-partial
-        >
-  <option value="">-select website details-</option>
-  {{#options}}<option value="{{value}}"{{#selected}} selected{{/selected}}>{{label}}</option>
-  {{/options}}
 </script>
