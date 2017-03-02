@@ -101,19 +101,25 @@ function formErrors (form, errs) {
       }
 
       //Find or create the div that will contain the message
-      var feedback = parent.querySelector('.form-control-feedback')
-      if(feedback == null) {
-        var div = document.createElement('div')
-        div.setAttribute("class", "form-control-feedback")
-        parent.appendChild(div, field)
-        feedback = parent.querySelector('.form-control-feedback')
-      }
+      var feedback = makeFormControlFeedback(field)
 
       feedback.innerHTML = err.msg
     }
   })
 
   return errs.length > 0
+}
+
+function makeFormControlFeedback (field) {
+  var parent = findParentWith(field, '.form-group', false)
+  var feedback = parent.querySelector('.form-control-feedback')
+  if(feedback == null) {
+    var div = document.createElement('div')
+    div.setAttribute("class", "form-control-feedback")
+    parent.appendChild(div, field)
+    feedback = parent.querySelector('.form-control-feedback')
+  }
+  return feedback
 }
 
 function bindFileInputs () {

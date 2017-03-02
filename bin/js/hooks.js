@@ -1,5 +1,5 @@
-
-function hookArtistDropdowns () {
+function hookArtistDropdowns (node) {
+  node = node || document
   var selects = findNodes('select[role=artist-dropdown]')
 
   if(selects.length == 0) {
@@ -39,7 +39,8 @@ function hookArtistDropdowns () {
   })
 }
 
-function hookWebsiteDetailsDropdowns () {
+function hookWebsiteDetailsDropdowns (node) {
+  node = node || document
   var selects = findNodes('select[role=website-details-dropdown]')
 
   if(selects.length == 0) {
@@ -77,5 +78,34 @@ function hookWebsiteDetailsDropdowns () {
       el.disabled = false
       el.innerHTML = "<option>-select website details-</option>\n" + optionsHTML
     })
+  })
+}
+
+function hookDateFields (node) {
+  node = node || document
+  var dateFields = document.querySelectorAll('input[type=date],input[type=datetime]')
+  dateFields.forEach(function (el) {
+    var parent = findParentWith(el, '.form-group', false)
+    var feedback = makeFormControlFeedback(el)
+
+    el.addEventListener('keyup', function () {
+      var val = this.value
+      var date = new Date(val)
+      var str = date.toString()
+      if(str == 'Invalid Date') {
+        if(parent) {
+          parent.classList.toggle('has-danger', true)
+          feedback.classList.toggle('text-muted', false)
+        }
+        feedback.innerHTML = 'Invalid Date'
+      }
+      else {
+        parent.classList.toggle('has-danger', false)
+        feedback.classList.toggle('text-muted', true)
+        feedback.innerHTML = formatDateTime(date)
+      }
+    })
+    var e = new Event('keyup')
+    el.dispatchEvent(e)
   })
 }
