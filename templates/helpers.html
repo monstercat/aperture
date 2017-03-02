@@ -61,6 +61,22 @@
   {{/options}}
 </script>
 
+<script type="text/template"
+        data-template="inline-checkbox-list"
+        data-partial
+        >
+<div>
+{{#each list}}
+<div class="form-check form-check-inline">
+  <label class="form-check-label">
+    <input class="form-check-input" type="checkbox" value="1" name="{{listName}}[{{key}}]" {{#if checked}}checked{{/if}}>
+    {{label}}
+  </label>
+</div>
+{{/each}}
+</div>
+        </script>
+
 
 <script type="text/template"
         data-template="pagination"
@@ -86,15 +102,15 @@
         data-template="breadcrumbs"
         data-partial
         >
-{{#breadcrumbs.length}}
+{{#if breadcrumbs.length}}
 <ol class="breadcrumb">
-  {{#breadcrumbs}}
+  {{#each breadcrumbs}}
   <li class="breadcrumb-item{{#active}} active{{/active}}">
     <a href="{{href}}">{{label}}</a>
   </li>
-  {{/breadcrumbs}}
+  {{/each}}
 </ol>
-{{/breadcrumbs.length}}
+{{/if}}
 </script>
 
 

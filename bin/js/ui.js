@@ -31,12 +31,7 @@ function reloadPage () {
   stateChange(location.pathname + location.search)
 }
 
-
 function formErrors (form, errs) {
-  errs = errs || []
-  if(errs.constructor != Array) {
-    errs = [errs]
-  }
   var errDiv = form.querySelector('[role=form-errors]')
   if(!errDiv) {
     var div = document.createElement('div')
@@ -45,8 +40,73 @@ function formErrors (form, errs) {
     form.insertBefore(div, form.firstChild)
     return formErrors(form, errs)
   }
-  errDiv.innerHTML = errs.join("<br />")
+
+  errs = errs || []
+  if(errs.constructor != Array) {
+    errs = [errs]
+  }
+  errs = errs.map(function (err) {
+    if(typeof(err) == 'string') {
+      err = {
+        msg: err
+      }
+    }
+    else if(err.hasOwnProperty('field')) {
+      err.selector = '[name=' + err.field + ']'
+    }
+
+    return err
+  })
+  var messages = errs.map(function (err) {
+    return err.msg
+  })
+  errDiv.innerHTML = messages.join("<br />")
   errDiv.classList.toggle('hidden-xs-up', errs.length == 0)
+
+  //Remove all the existing messages
+  var highlighted = form.querySelectorAll('.has-warning, .has-success, .has-danger')
+  if(highlighted) {
+    highlighted.forEach(function (el) {
+      el.classList.toggle('has-warning', false)
+      el.classList.toggle('has-success', false)
+      el.classList.toggle('has-danger', false)
+      var feedback = el.querySelector('.form-control-feedback')
+      if(feedback) {
+        feedback.innerHTML = ''
+      }
+    })
+  }
+
+  //Add warnings to fields
+  errs.forEach(function (err) {
+    if(err.selector) {
+      //Grab the actual offending input, textarea
+      //Can be any element type
+      var field = form.querySelector(err.selector)
+      if(!field) {
+        console.warn('Could not find field with err', err)
+        return
+      }
+      
+      //Find the containing form element. Usually a .form-group
+      var parent = findParentWith(field, '.form-group', false)
+      if(parent) {
+        parent.classList.toggle('has-danger', true)
+      }
+
+      //Find or create the div that will contain the message
+      var feedback = parent.querySelector('.form-control-feedback')
+      if(feedback == null) {
+        var div = document.createElement('div')
+        div.setAttribute("class", "form-control-feedback")
+        parent.appendChild(div, field)
+        feedback = parent.querySelector('.form-control-feedback')
+      }
+
+      feedback.innerHTML = err.msg
+    }
+  })
+
   return errs.length > 0
 }
 

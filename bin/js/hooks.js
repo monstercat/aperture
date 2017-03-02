@@ -1,3 +1,4 @@
+
 function hookArtistDropdowns () {
   var selects = findNodes('select[role=artist-dropdown]')
 
@@ -6,7 +7,7 @@ function hookArtistDropdowns () {
   }
 
   selects.forEach(function (el, index) {
-    el.disabled = true
+    //el.disabled = true
     el.innerHTML='<option>loading...</option>'
   })
 
@@ -16,7 +17,7 @@ function hookArtistDropdowns () {
   }, function (err, data) {
     if(err) {
       selects.forEach(function (el, index) {
-        el.disabled = true
+        //el.disabled = true
         el.innerHTML='<option>error loading artists</option>'
       })
       return
@@ -28,11 +29,11 @@ function hookArtistDropdowns () {
     })
 
     var optionsHTML = artists.map(function (artist) {
-      return '<option value="' + artist._id + '">' + artist.name + ' / ' + artist.realName + '/' + artist._id + '</option>'
+      return '<option value="' + artist._id + '" data-name="' + artist.name + '">' + artist.name + ' / ' + artist.realName + '/' + artist._id + '</option>'
     }).join("\n")
 
     selects.forEach(function (el, index) {
-      el.disabled = false
+     // el.disabled = false
       el.innerHTML = "<option>-select artist-</option>" + optionsHTML
     })
   })
