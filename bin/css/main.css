@@ -2,6 +2,10 @@ body {
   padding-bottom: 2em;
 }
 
+.hide {
+  display: none !important;
+}
+
 .toast {
  width: 90%;
   animation: scalingModal .45s ease 1 forwards;
@@ -141,6 +145,12 @@ span.s.s1:before {
   -webkit-animation: loading 1s infinite linear;
   animation: loading 1s infinite linear;
   margin: 2em;
+}
+
+.loader.loader--inline {
+  margin: 0px;
+  width: 1.5em;
+  height: 1.5em;
 }
 
 .loading--black {

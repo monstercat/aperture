@@ -46,9 +46,15 @@ function formErrors (form, errs) {
     errs = [errs]
   }
   errs = errs.map(function (err) {
+      console.log('err', err);
     if(typeof(err) == 'string') {
       err = {
         msg: err
+      }
+    }
+    else if(!err.hasOwnProperty('msg')) {
+      err = {
+        msg: err.toString()
       }
     }
     else if(err.hasOwnProperty('field')) {

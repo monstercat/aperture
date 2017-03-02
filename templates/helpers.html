@@ -118,13 +118,13 @@
         data-template="tabs"
         data-partial
         >
-{{#tabs.length}}
+{{#if tabs.length}}
   <ul class="nav nav-tabs mb-sm-2">
-    {{#tabs}}
+    {{#each tabs}}
     <li class="nav-item">
       <a class="nav-link{{#active}} active{{/active}}" href="{{href}}">{{label}}</a>
     </li>
-    {{/tabs}}
+    {{/each }}
   </ul>
-{{/tabs.length}}
+{{/if}}
 </script>
