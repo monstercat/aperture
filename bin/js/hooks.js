@@ -1,47 +1,22 @@
-function hookArtistDropdowns (node) {
+function hookRemoteDropdowns (node, opts) {
+  opts = opts || {}
+  opts.idField = opts.idField || '_id'
+  opts.sortField = opts.sortField || 'name'
   node = node || document
-  var selects = findNodes('select[role=artist-dropdown]')
 
-  if(selects.length == 0) {
-    return
+  if(!opts.getLabel) {
+    opts.getLabel = function (obj) {
+      return obj.name + obj.title
+    }
   }
 
-  selects.forEach(function (el, index) {
-    //el.disabled = true
-    el.innerHTML='<option>loading...</option>'
-  })
-
-  requestCached({
-    url: endpoint + '/user/?filters=type,artist&sortOn=name',
-    withCredentials: true
-  }, function (err, data) {
-    if(err) {
-      selects.forEach(function (el, index) {
-        //el.disabled = true
-        el.innerHTML='<option>error loading artists</option>'
-      })
-      return
+  if(!opts.getAttributes) {
+    opts.getAttributes = function (obj) {
+      return ""
     }
+  }
 
-    var artists = data.results.sort(function (a, b) {
-      if(a.name == b.name) return 0
-      return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
-    })
-
-    var optionsHTML = artists.map(function (artist) {
-      return '<option value="' + artist._id + '" data-name="' + artist.name + '">' + artist.name + ' / ' + artist.realName + '/' + artist._id + '</option>'
-    }).join("\n")
-
-    selects.forEach(function (el, index) {
-     // el.disabled = false
-      el.innerHTML = "<option>-select artist-</option>" + optionsHTML
-    })
-  })
-}
-
-function hookWebsiteDetailsDropdowns (node) {
-  node = node || document
-  var selects = findNodes('select[role=website-details-dropdown]')
+  var selects = findNodes('select[role=' + opts.selectRole + ']')
 
   if(selects.length == 0) {
     return
@@ -53,31 +28,77 @@ function hookWebsiteDetailsDropdowns (node) {
   })
 
   requestCached({
-    url: endpoint + '/website/?filters=public,1&fields=name,vanityUri',
+    url: opts.url,
     withCredentials: true
   }, function (err, data) {
     if(err) {
-      console.error(err)
       selects.forEach(function (el, index) {
         el.disabled = true
-        el.innerHTML='<option>error loading website details</option>'
+        el.innerHTML='<option>' + opts.errMsg + '</option>'
       })
       return
     }
 
-    var details = data.results.sort(function (a, b) {
-      if(a.name == b.name) return 0
-      return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+    data.results = data.results || []
+
+    var results = data.results.sort(function (a, b) {
+      if(a[opts.sortField] == b[opts.sortField]) return 0
+      
+      return a[opts.sortField].toLowerCase() > b[opts.sortField].toLowerCase() ? 1 : -1
     })
 
-    var optionsHTML = details.map(function (detail) {
-      return '<option value="' + detail._id + '">' + detail.name + ' / ' + detail.vanityUri  + '</option>'
+    var optionsHTML = results.map(function (obj) {
+      return '<option value="' + obj[opts.idField] + '" ' + opts.getAttributes(obj) + '>' + opts.getLabel(obj) + '</option>'
     }).join("\n")
 
     selects.forEach(function (el, index) {
       el.disabled = false
-      el.innerHTML = "<option>-select website details-</option>\n" + optionsHTML
+      el.innerHTML = '<option value="">' + opts.promptMsg + '</option>' + optionsHTML
+      var selected = el.querySelector('option[value="' + el.getAttribute('value') + '"]')
+      if(selected) {
+        selected.setAttribute('selected', true)
+      }
     })
+  })
+}
+
+function hookArtistDropdowns (node) {
+  return hookRemoteDropdowns(node, {
+    selectRole: 'artist-dropdown',
+    errMsg: 'error loading artists',
+    url: endpoint + '/user/?filters=type,artist&sortOn=name',
+    getLabel: function (obj) {
+      return obj.name + ' / ' + obj.realName + ' / ' + obj._id
+    },
+    getAttributes: function (obj) {
+      return 'data-name="' + obj.name + '"'
+    },
+    promptMsg: '-select artist-'
+  })
+}
+
+function hookWebsiteDetailsDropdowns (node) {
+  return hookRemoteDropdowns(node, {
+    selectRole: 'website-details-dropdown',
+    errMsg: 'error website details',
+    url: endpoint + '/website/?filters=public,1&fields=name,vanityUri',
+    getLabel: function (obj) {
+      return obj.name + ' / ' + obj.vanityUri 
+    },
+    promptMsg: '-select website details-'
+  })
+}
+
+function hookTrackDropdowns (node) {
+  return hookRemoteDropdowns(node, {
+    selectRole: 'track-dropdown',
+    errMsg: 'error website details',
+    url: endpoint + '/catalog/track/?fields=title,artistsTitle',
+    sortField: 'title',
+    getLabel: function (obj) {
+      return obj.title + ' by ' + obj.artistsTitle
+    },
+    promptMsg: '-select track-'
   })
 }
 
@@ -92,6 +113,13 @@ function hookDateFields (node) {
       var val = this.value
       var date = new Date(val)
       var str = date.toString()
+
+      if(!val || el.disabled) {
+        feedback.innerHTML =''
+        parent.classList.toggle('has-danger', false)
+        return
+      }
+
       if(str == 'Invalid Date') {
         if(parent) {
           parent.classList.toggle('has-danger', true)

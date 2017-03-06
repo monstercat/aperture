@@ -46,7 +46,6 @@ function formErrors (form, errs) {
     errs = [errs]
   }
   errs = errs.map(function (err) {
-      console.log('err', err);
     if(typeof(err) == 'string') {
       err = {
         msg: err
@@ -71,6 +70,8 @@ function formErrors (form, errs) {
 
   //Remove all the existing messages
   var highlighted = form.querySelectorAll('.has-warning, .has-success, .has-danger')
+
+  
   if(highlighted) {
     highlighted.forEach(function (el) {
       el.classList.toggle('has-warning', false)

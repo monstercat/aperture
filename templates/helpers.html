@@ -69,7 +69,7 @@
 {{#each list}}
 <div class="form-check form-check-inline">
   <label class="form-check-label">
-    <input class="form-check-input" type="checkbox" value="1" name="{{listName}}[{{key}}]" {{#if checked}}checked{{/if}}>
+    <input class="form-check-input" type="checkbox" value="1" name="{{../listName}}[{{key}}]" {{#if checked}}checked{{/if}}>
     {{label}}
   </label>
 </div>
@@ -106,7 +106,7 @@
 <ol class="breadcrumb">
   {{#each breadcrumbs}}
   <li class="breadcrumb-item{{#active}} active{{/active}}">
-    <a href="{{href}}">{{label}}</a>
+    <a href="{{href}}">{{{label}}}</a>
   </li>
   {{/each}}
 </ol>
