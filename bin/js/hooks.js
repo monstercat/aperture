@@ -93,7 +93,7 @@ function hookTrackDropdowns (node) {
   return hookRemoteDropdowns(node, {
     selectRole: 'track-dropdown',
     errMsg: 'error website details',
-    url: endpoint + '/catalog/track/?fields=title,artistsTitle',
+    url: endpoint + '/track/?fields=title,artistsTitle',
     sortField: 'title',
     getLabel: function (obj) {
       return obj.title + ' by ' + obj.artistsTitle

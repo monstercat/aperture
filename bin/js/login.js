@@ -59,7 +59,7 @@ function resendTwoFactorToken (e) {
   })
 }
 
-function onSignIn() {
+function onSignIn () {
   getSession(function (err, sess) {
     if (err) {
       toasty(new Error(err.message))
@@ -123,6 +123,6 @@ function recoverPassword (e) {
   })
 }
 
-function getRedirectTo() {
+function getRedirectTo () {
   return queryStringToObject(window.location.search).redirect || "/"
 }
