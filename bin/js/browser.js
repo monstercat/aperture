@@ -164,6 +164,7 @@ Browser.prototype.getPagination = function () {
   return {
     links: links,
     numPages: numPages,
+    currentPage: currentPage,
     from: frm,
     to: to
   }
