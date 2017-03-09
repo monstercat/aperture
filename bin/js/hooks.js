@@ -27,6 +27,7 @@ function hookRemoteDropdowns (node, opts) {
     el.innerHTML='<option>loading...</option>'
   })
 
+
   requestCached({
     url: opts.url,
     withCredentials: true
@@ -39,7 +40,12 @@ function hookRemoteDropdowns (node, opts) {
       return
     }
 
-    data.results = data.results || []
+    var trans = opts.transform || function (data) {
+      data.results = data.results || []
+      return data
+    }
+
+    data = trans(data)
 
     var results = data.results.sort(function (a, b) {
       if(a[opts.sortField] == b[opts.sortField]) return 0
@@ -99,6 +105,24 @@ function hookTrackDropdowns (node) {
       return obj.title + ' by ' + obj.artistsTitle
     },
     promptMsg: '-select track-'
+  })
+}
+
+function hookGenreDropdowns (node) {
+  return hookRemoteDropdowns(node, {
+    selectRole: 'genre',
+    idField: 'name',
+    errMsg: 'error getting genres',
+    url: endpoint + '/catalog/browse/filters',
+    getLabel: function (obj) {
+      return obj.name
+    },
+    transform: function (response) {
+      return {
+        results: response.genres
+      }
+    },
+    promptMsg: '-select genre-'
   })
 }
 
