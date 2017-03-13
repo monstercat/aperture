@@ -81,6 +81,10 @@ function formatDateTime (datetime) {
   return formatDate(date) + ' ' + zeroPad(date.getHours(),2) + ':' + zeroPad(date.getMinutes(),2) + ' (UTC' + (offset > 0 ? '+' : '') + offset + ')'
 }
 
+function formatCents (cents) {
+  return '$' + (cents / 100).toFixed(2)
+}
+
 function transformDatedObj (obj, field) {
   field = field || 'date'
 
