@@ -60,11 +60,8 @@ function hookRemoteDropdowns (node, opts) {
     selects.forEach(function (el, index) {
       el.disabled = false
       el.innerHTML = '<option value="">' + opts.promptMsg + '</option>' + optionsHTML
-      var selected = el.querySelector('option[value="' + el.getAttribute('value') + '"]')
-      if(selected) {
-        selected.setAttribute('selected', true)
-      }
     })
+    hookValueSelects(selects)
   })
 }
 
@@ -123,6 +120,16 @@ function hookGenreDropdowns (node) {
       }
     },
     promptMsg: '-select genre-'
+  })
+}
+
+function hookValueSelects (selects) {
+  selects = selects || findNodes('select[value]')
+  selects.forEach(function (el) {
+    var selected = el.querySelector('option[value="' + el.getAttribute('value') + '"]')
+    if(selected) {
+      selected.setAttribute('selected', true)
+    }
   })
 }
 
