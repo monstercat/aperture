@@ -133,6 +133,17 @@ function hookValueSelects (selects) {
   })
 }
 
+function hookValueRadioLists (lists) {
+  lists = lists || document.querySelectorAll('[role=radio-list]')
+  lists.forEach(function (list) {
+    var value = list.getAttribute('value')
+    var options = list.querySelectorAll('input[type=radio]')
+    options.forEach(function (option) {
+      option.checked = option.getAttribute('value') == value
+    })
+  })
+}
+
 function hookDateFields (node) {
   node = node || document
   var dateFields = document.querySelectorAll('input[type=date],input[type=datetime]')

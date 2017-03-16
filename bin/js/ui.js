@@ -57,7 +57,7 @@ function formErrors (form, errs) {
       }
     }
     else if(err.hasOwnProperty('field')) {
-      err.selector = '[name=' + err.field + ']'
+      err.selector = '[name="' + err.field + '"]'
     }
 
     return err

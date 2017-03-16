@@ -188,6 +188,28 @@ function randomItem (items) {
   return items[randomChooser(items.length) - 1]
 }
 
+function listToText (list) {
+  return list ? list.join('&#13;&#10;') : ''
+}
+
+function listToCSV (list) {
+  return list ? list.join(',') : ''
+}
+
+function csvToList (csv) {
+  if(!csv) {
+    return []
+  }
+  return csv
+    .split(",")
+    .filter(function (val) {
+      return val && val.length > 0
+    })
+    .map(function (val) {
+      return val.trim()
+    })
+}
+
 /* */
 
 function getSession (done) {
