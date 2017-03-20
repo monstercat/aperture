@@ -188,6 +188,16 @@ function randomItem (items) {
   return items[randomChooser(items.length) - 1]
 }
 
+function fixTextareaNewLines (text) {
+  if(!text) {
+    return ""
+  }
+  if(text.indexOf("\r\n") >= 0) {
+    return listToText(text.split("\r\n"))
+  }
+  return listToText(text.split("\n"))
+}
+
 function listToText (list) {
   return list ? list.join('&#13;&#10;') : ''
 }
