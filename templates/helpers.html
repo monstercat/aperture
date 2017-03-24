@@ -98,6 +98,21 @@
 </script>
 
 
+
+<script type="text/template"
+        data-template="meta-group-item"
+        data-partial
+        >
+<div class="list-group-item">
+  {{label}} 
+  {{#if val.length}}
+  <code>{{val}}</code>
+  {{else}}
+  &nbsp;<em>none</em>
+  {{/if}}
+</div>
+</script>
+
 <script type="text/template"
         data-template="breadcrumbs"
         data-partial
