@@ -206,6 +206,18 @@ function listToCSV (list) {
   return list ? list.join(',') : ''
 }
 
+/* New Line Separated Values to Text */
+function nlsvToList (text) {
+  if(!text) {
+    return []
+  }
+  return text.split("\n").map(function (url) {
+    return url.trim()
+  }).filter(function(url) {
+    return url && url.length > 0
+  })
+}
+
 function csvToList (csv) {
   if(!csv) {
     return []
