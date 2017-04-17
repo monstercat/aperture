@@ -180,6 +180,15 @@ function dataDotReducer (inData) {
   }, {})
 }
 
+function checkboxesToCSV (values) {
+  if(!values) {
+    return ""
+  }
+  return Object.keys(values).filter(function (key) {
+    return values[key] !== false
+  }).join(',')
+}
+
 function randomChooser(n){
   return Math.floor(Math.random() * n+1);
 }
