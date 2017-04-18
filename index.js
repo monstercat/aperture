@@ -63,9 +63,12 @@ function buildHTML () {
     }))
   }
   if (dir.html) arr.push(path.join(dir.html, 'end.html'))
-  arr.forEach(function (i) {
-    str += fs.readFileSync(i, 'utf8')
+  arr.filter((i)=> {
+    return path.basename(i).indexOf('.') != 0;
   })
+  .forEach((i)=> {
+    str += fs.readFileSync(i, 'utf8');
+  });
   return str
 }
 
