@@ -1,6 +1,6 @@
 {
   "name": "aperture",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "description": "A simple tool to serve or build portal sites.",
   "dependencies": {
     "argparse": "^1.0.9",
+    "colors": "^1.1.2",
     "declare": "git+ssh://git@github.com/monstercat/declare.git",
     "express": "^4.14.1",
     "mustache": "^2.3.0",
