@@ -216,3 +216,67 @@ span.s.s1:before {
       transform: rotate(-10deg);
     }
 }
+
+.datepicker {
+  padding: 5px;
+  box-shadow: 0px 0px 10px 0px #000;
+}
+
+.datepicker th.prev,
+.datepicker th.next {
+  width: 30px;
+  text-align: center;
+}
+
+.datepicker th.prev:hover,
+.datepicker th.next:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+.datepicker td {
+  text-align: center;
+  width: 30px;
+}
+
+.datepicker td:hover {
+  cursor: pointer;
+  background: #eee;
+}
+
+.datepicker td.active {
+  background: cornflowerblue;
+  color: #fff;
+}
+
+.datepicker th.datepicker-switch {
+  text-align: center;
+}
+
+.datepicker-months td:hover {
+  background: transparent;
+}
+
+.datepicker span.month {
+  padding: 3px;
+  margin: 0 1px 1px 0px;
+}
+
+.datepicker span.month:hover {
+  cursor: pointer;
+  background: #eee;
+}
+
+.form-inline .date-time-picker {
+  display: flex;
+}
+
+.form-inline .date-time-picker input,
+.form-inline .date-time-picker select {
+  margin-right: 2px;
+}
+
+.form-inline .date-time-picker .form-help {
+  line-height: 40px;
+  margin-left: 10px;
+}

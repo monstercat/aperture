@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   if(window.Handlebars) {
     Handlebars.registerHelper('date', function (val) {
-      if(!val) {
+      if(!val || new Date(val).toString() == 'Invalid Date') {
         return new Handlebars.SafeString('<abbr class="invalid-date">no date</abbr>')
       }
       var dateStr = new Date(val).toISOString() 
