@@ -16,13 +16,5 @@
     "url": "https://github.com/Monstercat/aperture/issues"
   },
   "homepage": "https://github.com/Monstercat/aperture#readme",
-  "description": "A simple tool to serve or build portal sites.",
-  "dependencies": {
-    "argparse": "^1.0.9",
-    "colors": "^1.1.2",
-    "declare": "git+ssh://git@github.com/monstercat/declare.git",
-    "express": "^4.14.1",
-    "mustache": "^2.3.0",
-    "path": "^0.12.7"
-  }
+  "description": "Reusable web files for Monstercat portals."
 }
