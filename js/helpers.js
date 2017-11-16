@@ -241,11 +241,9 @@ function csvToList (csv) {
     })
 }
 
-/* */
-
 function getSession (done) {
   request({
-    url: endpoint + '/self/session',
+    url: this['endpoint'] + '/self/session',
     withCredentials: true
   }, done)
 }
@@ -266,11 +264,15 @@ function hasAdminAccess() {
 }
 
 function userIsArtist (user) {
-  return user && user.type && user.type.indexOf('artist') >= 0
+  return user && 
+         user.type instanceof Array && 
+         user.type.indexOf('artist') >= 0
 }
 
 function hasEventAccess() {
-  return session.permissions && session.permissions.event && session.permissions.event.create == true
+  return session.permissions && 
+         session.permissions.event && 
+         session.permissions.event.create == true
 }
 
 function isSignedIn () {
@@ -278,14 +280,13 @@ function isSignedIn () {
 }
 
 function getSessionName () {
-  var names = []
-  if(session.user) {
-    names = names.concat([session.user.realName, session.user.name, session.user.email.substr(0, session.user.email.indexOf('@'))])
-  }
-  for(var i = 0; i < names.length; i++) {
-    if(names[i] && names[i].length > 0) {
-      return names[i]
-    }
+  var session = this['session']
+  if (session && session.user) {
+    return [
+      session.user.realName,
+      session.user.name,
+      session.user.email.substr(0, session.user.email.indexOf('@'))
+    ].filter(function (x) { return !!(x || '').trim() })[0] || 'guest'
   }
   return 'guest'
 }

@@ -4,18 +4,29 @@ Reusable JS, CSS, and HTML to be used in the various portals created at Monsterc
 
 ## Install
 
-1. Put it in your `package.json`
+```
+npm install git+https://github.com/monstercat/aperture.git --save
+```
 
-    dependencies: {
-      "aperture": "https+ssh//git@github.com/monstercat/aperture"
-    }
+## Usage
 
-2. run `npm install`
+### Serve 
 
-3. Include the aperture folder in your ExpressJS app file as a static dir.
+You can serve the directory by mounting the folder, symlinking it, or how ever you feel.
 
-    app.use(express.static(path.join("node_modules"))
-    
-4. Put it in your head HTML file by pointing to that static folder
+#### Example with Express
 
-    <script type="text/javascript src="/aperture/js/declare.js"></script>
+```
+app.use(express.static(path.join("node_modules", "aperture")))
+```
+
+### Link in HTML
+
+Import desired tools in your HTML head section.
+
+```
+<script type="text/javascript src="/aperture/js/helpers.js"></script>
+<link rel="stylesheet" type="text/css" href="/aperture/css/main.css">
+...
+```
+
